@@ -26,11 +26,14 @@ body {
   min-height: 100vh;
   position: relative;
   padding: 42px;
-  overflow-x: auto;
 }
 
 .desktop > bts-window {
   max-width: 100%;
+}
+
+.store-desktop {
+  overflow: hidden;
 }
 
 @media (max-width: 1200px) {
@@ -43,13 +46,26 @@ body {
     position: static;
     padding: 20px;
     overflow-x: hidden;
+    overflow-y: hidden;
   }
 
-  .desktop > bts-window {
+  .desktop > bts-window:not([content-fit]) {
     position: static !important;
     left: auto !important;
     top: auto !important;
     width: min(100%, 900px) !important;
+  }
+
+  .desktop > bts-window[content-fit] {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: fit-content !important;
+    max-width: 100%;
+  }
+
+  .store-desktop {
+    overflow: visible;
   }
 }
 
@@ -59,8 +75,13 @@ body {
     gap: 14px;
   }
 
-  .desktop > bts-window {
+  .desktop > bts-window:not([content-fit]) {
     width: 100% !important;
+  }
+
+  .desktop > bts-window[content-fit] {
+    width: fit-content !important;
+    max-width: 100%;
   }
 }
 

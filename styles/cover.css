@@ -1,0 +1,59 @@
+.cover-link {
+    position: absolute;
+    display: block;
+    z-index: 2;
+    width: clamp(96px, 22%, 240px);
+    height: auto;
+    border: clamp(2px, 0.25vw, 3px) solid #0f0018;
+    text-decoration: none;
+    left: var(--cover-left);
+    top: var(--cover-top);
+    transform-origin: center bottom;
+    transition: transform 0.15s ease;
+}
+
+.cover-link img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (hover: hover) {
+    .cover-link:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.cover-link--1 {
+    --cover-left: 15.2%;
+    --cover-top: 37.2%;
+}
+
+    .cover-link--2 {
+    --cover-left: 40.95%;
+    --cover-top: 37.2%;
+}
+
+.cover-link--3 {
+    --cover-left: 66.7%;
+    --cover-top: 37.2%;
+}
+
+@media (max-width: 1200px) {
+    .cover-link--1,
+    .cover-link--2,
+    .cover-link--3 {
+        --cover-top: 36.6%;
+    }
+}
+
+@media (max-width: 600px) {
+    .cover-link {
+        width: 16.5%;
+    }
+    .cover-link--1,
+    .cover-link--2,
+    .cover-link--3 {
+        --cover-top: 36%;
+    }
+}

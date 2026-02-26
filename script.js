@@ -1,4 +1,6 @@
 class BtsWindow extends HTMLElement {
+  static stylesheetHref = "";
+
   static get observedAttributes() {
     return [
       "heading",
@@ -14,6 +16,20 @@ class BtsWindow extends HTMLElement {
       "button-text",
       "button-href",
     ];
+  }
+
+  static getStylesheetHref() {
+    if (BtsWindow.stylesheetHref) {
+      return BtsWindow.stylesheetHref;
+    }
+
+    const scriptElement = document.querySelector('script[src$="script.js"]');
+    const scriptUrl = scriptElement
+      ? new URL(scriptElement.getAttribute("src"), document.baseURI)
+      : new URL("script.js", document.baseURI);
+
+    BtsWindow.stylesheetHref = new URL("styles/bts-window.css", scriptUrl).href;
+    return BtsWindow.stylesheetHref;
   }
 
   connectedCallback() {
@@ -47,6 +63,7 @@ class BtsWindow extends HTMLElement {
     const imageAlt = this.getAttribute("image-alt") || heading;
     const buttonText = this.getAttribute("button-text") || "";
     const buttonHref = this.getAttribute("button-href") || "";
+    const hasCustomContent = this.childElementCount > 0;
     const width = this.getCssValue(this.getAttribute("width"), "min(680px, 96vw)");
     const left = this.getCssValue(this.getAttribute("left"));
     const top = this.getCssValue(this.getAttribute("top"));
@@ -106,10 +123,30 @@ class BtsWindow extends HTMLElement {
     this.style.zIndex = zIndex;
 
     const computedPosition = positionAttr || (left || top ? "absolute" : "static");
-    this.style.width = width;
+    this.style.width = hasCustomContent ? "fit-content" : width;
+    this.style.maxWidth = "100%";
+    this.toggleAttribute("content-fit", hasCustomContent);
     this.style.position = computedPosition;
     this.style.left = left || "";
     this.style.top = top || "";
+
+    const contentMinHeightValue = hasCustomContent ? "0" : contentMinHeight;
+    const contentAlignValue = hasCustomContent ? "stretch" : "center";
+    const contentJustifyValue = hasCustomContent ? "flex-start" : "center";
+    const contentTextAlignValue = hasCustomContent ? "left" : "center";
+
+    this.style.setProperty("--bw-border-size", borderSize);
+    this.style.setProperty("--bw-title-padding", titlePadding);
+    this.style.setProperty("--bw-title-font-size", titleFontSize);
+    this.style.setProperty("--bw-content-min-height", contentMinHeightValue);
+    this.style.setProperty("--bw-content-padding", contentPadding);
+    this.style.setProperty("--bw-content-align", contentAlignValue);
+    this.style.setProperty("--bw-content-justify", contentJustifyValue);
+    this.style.setProperty("--bw-content-text-align", contentTextAlignValue);
+    this.style.setProperty("--bw-message-font-size", messageFontSize);
+    this.style.setProperty("--bw-button-font-size", buttonFontSize);
+    this.style.setProperty("--bw-button-padding", buttonPadding);
+    this.style.setProperty("--bw-image-max-width", imageMaxWidth);
 
     const buttonMarkup = buttonText
       ? buttonHref
@@ -117,80 +154,16 @@ class BtsWindow extends HTMLElement {
         : `<button class="window-button" type="button">${buttonText}</button>`
       : "";
 
-    const contentMarkup = imageSrc
-      ? `<img class="window-image" src="${imageSrc}" alt="${imageAlt}" />${buttonMarkup}`
-      : `<p class="message">${message}</p>${buttonMarkup}`;
+    const contentMarkup = hasCustomContent
+      ? `<slot></slot>${buttonMarkup}`
+      : imageSrc
+        ? `<img class="window-image" src="${imageSrc}" alt="${imageAlt}" />${buttonMarkup}`
+        : `<p class="message">${message}</p>${buttonMarkup}`;
+
+    const stylesheetHref = BtsWindow.getStylesheetHref();
 
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-        }
-
-        .window {
-          border: ${borderSize} solid #0f0018;
-          background: #ffffff;
-          color: #1a0026;
-          font-family: "Courier New", Courier, monospace;
-        }
-
-        .title-bar {
-          background: #cdbcde;
-          border-bottom: ${borderSize} solid #0f0018;
-          padding: ${titlePadding};
-        }
-
-        .title {
-          margin: 0;
-          font-size: ${titleFontSize};
-          font-weight: 700;
-          line-height: 1.05;
-        }
-
-        .content {
-          min-height: ${contentMinHeight};
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          text-align: center;
-          padding: ${contentPadding};
-        }
-
-        .message {
-          margin: 0;
-          font-size: ${messageFontSize};
-          font-weight: 700;
-          line-height: 1.08;
-        }
-
-        .window-image {
-          display: block;
-          width: min(100%, ${imageMaxWidth});
-          height: auto;
-        }
-
-        .window-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border: ${borderSize} solid #0f0018;
-          background: #ffffff;
-          color: #1a0026;
-          font-family: "Courier New", Courier, monospace;
-          font-weight: 700;
-          font-size: ${buttonFontSize};
-          line-height: 1;
-          text-decoration: none;
-          padding: ${buttonPadding};
-          cursor: pointer;
-        }
-
-        .window-button:hover {
-          background: #f2f2f2;
-        }
-      </style>
+      <link rel="stylesheet" href="${stylesheetHref}" />
 
       <section class="window" role="region" aria-label="${heading} Window">
         <header class="title-bar">

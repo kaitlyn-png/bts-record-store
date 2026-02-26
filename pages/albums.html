@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BTS Record Store - Front</title>
+    <title>BTS Record Store - Albums</title>
     <link rel="icon" href="../assets/vinyl.png" type="image/png">
     <link rel="stylesheet" href="../styles/styles.css" />
     <link rel="stylesheet" href="../styles/bts-window.css" />
@@ -11,27 +11,26 @@
   <body>
     <main class="desktop">
       <bts-window
-        heading="Enter the Store!"
-        message="Click “Open” to Enter!"
+        heading="Albums"
+        message="Album details page"
         width="900"
-        left="120"
-        top="60"
+        left="220"
+        top="120"
         size="small"
         z-index="1"
+        button-text="Back"
+        button-href="store.html"
       ></bts-window>
 
       <bts-window
-        heading="The Front"
-        image-src="../assets/store.png"
-        image-alt="BTS Records storefront"
-        width="600"
-        left="760"
-        top="220"
-        size="large"
-        z-index="2"
-        button-text="Open"
-        button-href="store.html"
-      ></bts-window>
+        heading="Current Album"
+        message="record"
+        width="400"
+        left="140"
+        top="80"
+        size="medium"
+        z-index="1"
+        ></bts-window>
     </main>
 
     <script src="../script.js"></script>

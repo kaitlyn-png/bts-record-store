@@ -6,18 +6,49 @@
     <title>BTS Record Store - Store</title>
     <link rel="icon" href="../assets/vinyl.png" type="image/png">
     <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/bts-window.css" />
+    <link rel="stylesheet" href="../styles/cover.css" />
+    <link rel="stylesheet" href="../styles/record-stand.css" />
   </head>
   <body>
-    <main class="desktop">
+    <main class="desktop store-desktop">
       <bts-window
         heading="The Store"
-        image-src="../assets/recordstand.png"
-        image-alt="Record stand with BTS albums"
         width="900"
-        left="220"
-        top="120"
-        size="small"
+        left="140"
+        top="110"
+        size="default"
         z-index="1"
+      >
+        <section class="record-stand" aria-label="Record stand">
+          <img class="record-stand-image record-stand-image--back" src="../assets/backstand.png" alt="Back record stand" />
+
+          <a class="cover-link cover-link--1" href="albums/butter/english.html" aria-label="Open Butter album page">
+            <img src="../assets/covers/Butter.png" alt="Butter album cover" />
+          </a>
+
+          <a class="cover-link cover-link--2" href="albums/dynamite/english.html" aria-label="Open Dynamite album page">
+            <img src="../assets/covers/Dynamite.png" alt="Dynamite album cover" />
+          </a>
+
+          <a class="cover-link cover-link--3" href="albums/my-universe/english.html" aria-label="Open My Universe album page">
+            <img src="../assets/covers/My Universe.png" alt="My Universe album cover" />
+          </a>
+
+          <img class="record-stand-image record-stand-image--front-top" src="../assets/top-shelf.png" alt="Top shelf" />
+          <img class="record-stand-image record-stand-image--front-middle" src="../assets/middle-shelf.png" alt="Middle shelf" />
+          <img class="record-stand-image record-stand-image--front-bottom" src="../assets/bottom-shelf.png" alt="Bottom shelf" />
+        </section>
+      </bts-window>
+
+      <bts-window
+        heading="Information"
+        message="Click on a record to view it"
+        width="720"
+        left="1075"
+        top="500"
+        size="small"
+        z-index="2"
         button-text="Back"
         button-href="front.html"
       ></bts-window>

@@ -1,0 +1,60 @@
+
+.record-stand {
+  position: relative;
+  width: min(100%, 860px);
+  margin: 0 auto;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.record-stand-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.record-stand-image--back {
+  position: relative;
+  z-index: 1;
+}
+
+.record-stand-image--front-top{
+  position: absolute;
+  left: 0;
+  top: 20%;
+  width: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.record-stand-image--front-middle{
+  position: absolute;
+  left: 0;
+  top: 60%;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.record-stand-image--front-bottom{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@media (max-width: 1200px) {
+  .record-stand {
+    position: relative;
+    width: min(100%, 900px);
+  }
+}
+
+@media (max-width: 600px) {
+  .record-stand {
+    width: 100%;
+  }
+}
