@@ -10,27 +10,34 @@
     <link rel="stylesheet" href="../../../styles/cover.css" />
   </head>
   <body>
+    <p id="lyrics"></p>
+    <script>
+      fetch('../../../lyrics.json')
+      .then(function(response){
+        return response.json();
+      })
+      .then(data =>{
+          const butter = data.find(song => song.title === "Butter");
+          const lyricsWindow = document.getElementById("lyricsWindow");
+          lyricsWindow.setAttribute("message", butter.lyrics.english.replace(/\n/g, "<br>"));
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+      </script>
     <main class="desktop">
+      <div class="album-layout">
         <bts-window
+            id="albumWindow"
             heading="Butter"
             image-src="../../../assets/covers/Butter.png"
             image-alt="Butter Album Cover"
-            message="Buddah"
-            width="900"
-            height=auto
-            left="220"
-            size="small"
         ></bts-window>
         <bts-window
+            id="lyricsWindow"
             heading="Lyrics"
-            message="Smooth like butter, like a criminal undercover"
-            width="500"
-            height=auto
-            left="120"
-            size="medium"
-            >
-        <p> </p>
-        </bts-window>
+            ></bts-window>
+      </div>
     </main>
 
     <script src="../../../script.js"></script>

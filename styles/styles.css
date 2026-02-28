@@ -26,6 +26,9 @@ body {
   min-height: 100vh;
   position: relative;
   padding: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .desktop > bts-window {
