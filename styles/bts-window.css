@@ -86,23 +86,76 @@
 }
 
 .album-layout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  height: 90vh;
-  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1.05fr 1.05fr 1.3fr;
+  grid-template-rows: 1fr 0.8fr 0.95fr;
+  grid-template-areas:
+    "album video lyrics"
+    "info video lyrics"
+    "howto funfact lyrics";
+  gap: 18px;
+  height: calc(100vh - 84px);
   width: 100%;
 }
 
+.album-layout > bts-window {
+  width: 100%;
+  height: 100%;
+}
+
 #albumWindow{
-  width: 30%;
-  max-width: 80vh;
+  grid-area: album;
+  min-width: 0;
+}
+
+#infoWindow {
+  grid-area: howto;
+  min-width: 0;
+}
+
+#videoWindow {
+  grid-area: video;
+  min-width: 0;
+}
+
+#funFactWindow {
+  grid-area: funfact;
+  min-width: 0;
+}
+
+#howToListenWindow {
+  grid-area: info;
+  min-width: 0;
+}
+
+#butter_vinyl {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#butter_vinyl:hover {
+  transform: scale(1.04);
+}
+
+#butter_vinyl.is-playing {
+  animation: spin-vinyl 2.4s linear infinite;
+}
+
+@keyframes spin-vinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #lyricsWindow{
-  width: 60%;
-  height: 80vh;
+  grid-area: lyrics;
+  min-width: 0;
   --bw-content-overflow: auto;
   --bw-content-align: flex-start;
   --bw-content-justify: flex-start;
@@ -118,6 +171,51 @@
   height: 100%;
 }
 
+#videoWindow .content {
+  padding: 0;
+  min-height: 100%;
+  height: 100%;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
+}
+
+#videoWindow .window,
 #lyricsWindow .window{
   height: 100%;
+}
+
+#videoWindow iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  min-height: 280px;
+}
+
+@media (max-width: 1200px) {
+  .album-layout {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "album"
+      "howto"
+      "info"
+      "video"
+      "funfact"
+      "lyrics";
+    gap: 16px;
+  }
+
+  .album-layout > bts-window {
+    height: auto;
+  }
+
+  #videoWindow iframe {
+    min-height: 320px;
+  }
+
+  #lyricsWindow {
+    min-height: 420px;
+  }
 }

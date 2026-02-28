@@ -30,16 +30,47 @@
         <bts-window
             id="albumWindow"
             heading="Butter"
-            image-src="../../../assets/covers/Butter.png"
-            image-alt="Butter Album Cover"
+            size="small"
+        >
+          <img id="butter_vinyl" src="../../../assets/butter_vinyl.png" alt="Butter Vinyl" />
+          <audio id="butter_audio" preload="metadata">
+            <source src="../../../assets/audio/butter.mp3" type="audio/mpeg" />
+          </audio>
+        </bts-window>
+        <bts-window
+            id="infoWindow"
+            heading="Album Information"
+          message="Released: May 21, 2021<br>Genre: Pop<br>Length: 2:44"
+            size="small"
+        ></bts-window>
+        <bts-window
+            id="videoWindow"
+            heading="Music Video"
+            size="small"
+        >
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/WMweEpGlu_U" title="Butter Music Video" frameborder="0" allowfullscreen></iframe>
+        </bts-window>
+        <bts-window
+            id="funFactWindow"
+            heading="Fun Fact"
+            message="Butter was BTS's second English-language single, following 'Dynamite'. It debuted at number one on the Billboard Hot 100 and stayed there for 10 weeks."
+            size="small"
+        ></bts-window>
+        <bts-window 
+            id="howToListenWindow"
+            heading="How to Listen"
+            message="Click the vinyl record to play the song!"
+            size="small"
         ></bts-window>
         <bts-window
             id="lyricsWindow"
             heading="Lyrics"
+            size="small"
             ></bts-window>
       </div>
     </main>
 
     <script src="../../../script.js"></script>
+    <script src="./butter-audio.js"></script>
   </body>
 </html>
